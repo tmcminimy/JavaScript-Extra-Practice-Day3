@@ -2,10 +2,17 @@
 TASK 1 🚀
 // in your own words explain what a closure is below in comments and then write an example of a closure. Try to make this explaination simple enough to explain to a younger sibling. */
 
+// A closure is a function with access to a parent scope. It allows the use of 'private' variables that can't otherwise be altered or accessed.
 
-
-
-
+function mmaFighter(){
+  var name = 'Dominick Cruz';
+  function mmaRecord(){
+    console.log(`${name} has a pro fight record of 22 wins, 3 losses`)
+  }
+  mmaRecord();
+}
+console.log(mmaFighter());
+// It's not perfect, but my understanding isn't perfect either. Nonetheless, mmaRecord can clearly access data outside of its function.
 
 /*
 TASK 2 🚀
@@ -19,8 +26,7 @@ function counterMaker() {
      return count++;
     }
   }
-
-
+// 'count' is available inside of the counterMaker function, and can only be accessed by referencing it. Changing it to var would make it accessible globally.
 
 
 
@@ -30,10 +36,10 @@ TASK 3 🚀
 * The for principles of "this";
 * in your own words. explain the four principle for the "this" keyword below.
 *
-* 1. 
-* 2. 
-* 3. 
-* 4. 
+* 1. Window Binding: The default, if no other options are chosen. 'this' will refer to the window.
+* 2. Implicit Binding: When function is invoked, look to the left of the dot. Most common use of 'this' keyword.
+* 3. Explicit Binding: You specifically provide the context for invoking the function. .call, .apply, etc. To be honest, this is the variation of 'this' that I am most confused about, and I don't entirely understand how it works (and gets broken)
+* 4. New Binding: Constructs a new Object, which 'this' then points to.
 *
 * write out a code example of each explanation above
 */
@@ -42,19 +48,54 @@ TASK 3 🚀
 
 // code example for Window Binding
 
+function myCar(car){
+  console.log('My car is a Toyota ' + this.car);
+}
+myCar(); // this.car returns 'undefined'
+window.car = 'Camry';
+myCar(); // this.car now returns 'Camry'
 // Principle 2
 
 // code example for Implicit Binding
+
+const dinner2Nite = {
+  main_course: 'pan-seared salmon',
+  side_dish: 'jasmine rice',
+  cook: function(){
+    console.log(this.main_course + ', served with ' + this.side_dish);
+  }
+}
+dinner2Nite.cook();
 
 // Principle 3
 
 // code example for New Binding
 
+function authors (name, book){
+  this.name = name;
+  this.book = book;
+}
+const author1 = new authors('Robert Holdstock', 'Mythago Wood');
+
+console.log(author1);
+
 // Principle 4
 
 // code example for Explicit Binding
 
-
+function boxers(){
+  console.log(this.name + ' has a professional boxing record of' + this.record);
+}
+const boxerName1 = {
+  name: 'Prince Naseem Hamed',
+  record: ' 36-1',
+}
+const boxerName2 = {
+  name: 'Emanuel Augustus',
+  record: ' 38-34',
+}
+boxers.call(boxerName2);
+boxers.call(boxerName1);
 
 
 
